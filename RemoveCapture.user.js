@@ -58,8 +58,7 @@
     function loadCaptureMode() {
 	if(isCaptureMode) {
 	    removeCaptureAttribute();
-	}
-	if(isCaptureMode) {
+	} else {
 	    addCaptureAttribute();
 	}
     }
