@@ -16,8 +16,7 @@
 
     var isCaptureMode = true;
     var lastTouchEnd = 0;
-    var touchCount = 0;
-//    var timeout;
+    var touchCount = 1;
 
     //切换至 no capture 模式
     function removeCaptureAttribute() {
