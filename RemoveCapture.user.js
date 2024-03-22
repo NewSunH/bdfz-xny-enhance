@@ -17,7 +17,7 @@
     var isCaptureMode = true;
     var lastTouchEnd = 0;
     var touchCount = 0;
-    var timeout;
+//    var timeout;
 
     //切换至 no capture 模式
     function removeCaptureAttribute() {
@@ -77,26 +77,15 @@
         if (now - lastTouchEnd <= 5) {
             // 触发了三指单击事件
             touchCount++;
-            //clearTimeout(timeout);
-
             if (touchCount === 1) {
-                //timeout = setTimeout(function() {
-                    touchCount = 0;
-                    toggleCaptureMode();
-                //}, 500);
-            } else if (touchCount === 2) {
                 touchCount = 0;
-                //clearTimeout(timeout);
+                toggleCaptureMode();
             }
-        } else {
-            touchCount = 1;
-            //clearTimeout(timeout);
-            //timeout = setTimeout(function() {
-                touchCount = 0;
-            //}, 500);
-        }
+        touchCount = 0;
         lastTouchEnd = now;
-    });
+    
+	});
+    }
 
-})();
+};
 
