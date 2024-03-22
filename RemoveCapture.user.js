@@ -68,18 +68,13 @@
     observer.observe(document.body, { childList: true, subtree: true });
 
     // 监听三指单击事件
-    document.addEventListener('touchend', function(event) {
-        var now = Date.now();
-        if(now - lastTouchEnd <= 5) {
-               touchCount ++;
-	if(touchCount === 3) {
-        	toggleCaptureMode();
-	}
-        } else {
-	     touchCount = 1;
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 3) {
+            toggleCaptureMode();
+	    loadCaptureMode();
         }
-        lastTouchEnd = now; 
-    });
+    }, false);
 
-};
+
+}
 
