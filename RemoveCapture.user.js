@@ -75,7 +75,7 @@
         if (now - lastTouchEnd <= 5) {
             // 触发了三指单击事件
             touchCount++;
-            if (touchCount === 1) {
+            if (touchCount >= 1) {
                 touchCount = 0;
                 toggleCaptureMode();
 		loadCaptureMode();
