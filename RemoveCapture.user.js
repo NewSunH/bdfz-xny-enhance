@@ -71,19 +71,16 @@
     // 监听三指单击事件
     document.addEventListener('touchend', function(event) {
         var now = Date.now();
-        if (now - lastTouchEnd <= 5) {
-            // 触发了三指单击事件
-            touchCount++;
-            if (touchCount >= 1) {
-                touchCount = 0;
-                toggleCaptureMode();
-		loadCaptureMode();
-            }
-        touchCount = 0;
-        lastTouchEnd = now;
-    
-	});
-    }
+        if(now - lastTouchEnd <= 5) {
+               touchCount ++;
+	if(touchCount === 3) {
+        	toggleCaptureMode();
+	}
+        } else {
+	     touchCount = 1;
+        }
+        lastTouchEnd = now; 
+    });
 
 };
 
