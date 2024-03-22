@@ -77,23 +77,23 @@
         if (now - lastTouchEnd <= 5) {
             // 触发了三指单击事件
             touchCount++;
-            clearTimeout(timeout);
+            //clearTimeout(timeout);
 
             if (touchCount === 1) {
-                timeout = setTimeout(function() {
+                //timeout = setTimeout(function() {
                     touchCount = 0;
                     toggleCaptureMode();
-                }, 500);
+                //}, 500);
             } else if (touchCount === 2) {
                 touchCount = 0;
-                clearTimeout(timeout);
+                //clearTimeout(timeout);
             }
         } else {
             touchCount = 1;
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
+            //clearTimeout(timeout);
+            //timeout = setTimeout(function() {
                 touchCount = 0;
-            }, 500);
+            //}, 500);
         }
         lastTouchEnd = now;
     });
