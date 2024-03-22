@@ -48,11 +48,9 @@
     function toggleCaptureMode() {
         if (isCaptureMode) {
             // 当前是捕获模式，切换回上传模式
-            removeCaptureAttribute();
             isCaptureMode = false;
         } else {
             // 当前是上传模式，切换到捕获模式
-            addCaptureAttribute();
             isCaptureMode = true;
         }
     }
@@ -80,6 +78,7 @@
             if (touchCount === 1) {
                 touchCount = 0;
                 toggleCaptureMode();
+		loadCaptureMode();
             }
         touchCount = 0;
         lastTouchEnd = now;
