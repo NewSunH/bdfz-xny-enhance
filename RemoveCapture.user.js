@@ -18,13 +18,12 @@
     var timeout = 0;
 
     function getCaptureInput(){
-	var inputs = document.querySelectorAll('input');
-	
-	inputs.forEach(function(input) {
-	    input.setAttribute('hasCapture',1);
-	});
-    }
+        var inputs = document.querySelectorAll('input');
 
+        inputs.forEach(function(input) {
+            input.setAttribute('hasCapture', 1);
+        });
+    }
 
     // 移除 capture 属性的函数
     function removeCaptureAttribute() {
@@ -33,47 +32,52 @@
 
         // 遍历所有 input 元素
         inputs.forEach(function(input) {
-            // 检查是否具有 "capture" 属性
+            // 检查是否具有 "hasCapture" 属性
             if (input.hasAttribute('hasCapture')) {
                 // 移除 "capture" 属性
                 input.removeAttribute('capture');
+                input.removeAttribute('accept');
+            }
+        });
+    }
+
+    // 添加 capture 属性的函数
+    function addCaptureAttribute() {
+        var inputs = document.querySelectorAll('input');
+        inputs.forEach(function(input) {
+            if (input.hasAttribute('hasCapture')) {
+                input.setAttribute('capture', 'camera');
                 input.setAttribute('accept', 'image/*');
             }
         });
     }
 
-    function addCaptureAttribute() {
-	var inputs = document.querySelectorAll('input');
-	inputs.forEach(function(input) {
-	    if (input.hasAttribute('hasCapture')) {
-		input setAttribute('capture','camera')
-	    }
-	});
-    }
-
     // 切换捕获模式的函数
     function toggleCaptureMode() {
-        if (isCaptureMode) {
-            // 当前是捕获模式，切换回普通模式
-            isCaptureMode = false;
-        } else {
-            isCaptureMode = true;
-        }
+        isCaptureMode = !isCaptureMode;
+        loadCaptureAttribute();
     }
 
     function loadCaptureAttribute() {
-	if (isCaptureMode) {
-	    addCaptureAttribute();
-	} else {
-	    removeCaptureAttribute();
-	}
+        if (isCaptureMode) {
+            addCaptureAttribute();
+        } else {
+            removeCaptureAttribute();
+        }
     }
 
-    // 在页面加载和 DOM 变化时getCaptureInput
-    document.addEventListener('DOMContentLoaded', function(){alert{isCaptureMode};getCaptureInput();loadCaptureAttritube();});
-    var observer = new MutationObserver(function(){alert(isCaptureMode);getCaptureInput();loadCaptureAttritube();});
-    observer.observe(document.body, { childList: true, subtree: true });
+    // 在页面加载时getCaptureInput
+    document.addEventListener('DOMContentLoaded', function() {
+        getCaptureInput();
+        loadCaptureAttribute();
+    });
 
+    // 使用 MutationObserver 监听 DOM 变化
+    var observer = new MutationObserver(function() {
+        getCaptureInput();
+        loadCaptureAttribute();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     // 监听三指单击事件
     document.addEventListener('touchend', function(event) {
@@ -85,10 +89,8 @@
 
             if (touchCount === 1) {
                 timeout = setTimeout(function() {
-		    alert(isCaptureMode);
                     touchCount = 0;
                     toggleCaptureMode();
-		    loadCaptureAttritube();
                 }, 500);
             } else if (touchCount === 2) {
                 touchCount = 0;
@@ -105,5 +107,4 @@
     });
 
 })();
-
 
