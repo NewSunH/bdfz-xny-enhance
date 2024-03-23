@@ -59,6 +59,10 @@
 
     function updateButton() {
         var button = document.getElementById('captureToggleButton');
+        if (!button) {
+            createToggleButton();
+            return;
+        }
         if (isCaptureMode) {
             button.textContent = '拍照';
         } else {
@@ -76,8 +80,8 @@
         button.addEventListener('click', function() {
             toggleCaptureMode();
         });
-        document.body.appendChild(button);
         updateButton();
+        document.body.appendChild(button);
     }
 
     function observePageChanges() {
