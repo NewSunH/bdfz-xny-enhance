@@ -70,8 +70,8 @@
     }
 
     // 在页面加载和 DOM 变化时getCaptureInput
-    document.addEventListener('DOMContentLoaded', function(){getCaptureInput();loadCaptureAttritube();});
-    var observer = new MutationObserver(function(){getCaptureInput();loadCaptureAttritube();});
+    document.addEventListener('DOMContentLoaded', function(){alert{isCaptureMode};getCaptureInput();loadCaptureAttritube();});
+    var observer = new MutationObserver(function(){alert(isCaptureMode);getCaptureInput();loadCaptureAttritube();});
     observer.observe(document.body, { childList: true, subtree: true });
 
 
@@ -85,6 +85,7 @@
 
             if (touchCount === 1) {
                 timeout = setTimeout(function() {
+		    alert(isCaptureMode);
                     touchCount = 0;
                     toggleCaptureMode();
 		    loadCaptureAttritube();
