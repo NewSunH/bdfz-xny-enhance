@@ -14,67 +14,95 @@
 (function() {
     'use strict';
 
-    var isCaptureMode = true;
-    var lastTouchEnd = 0;
-    var touchCount = 1;
+    var isCaptureMode = false;
+    var timeout = 0;
 
-    //切换至 no capture 模式
+    function getCaptureInput(){
+	var inputs = document.querySelectorAll('input');
+	
+	inputs.forEach(function(input) {
+	    input.setAttribute('hasCapture',1);
+	});
+    }
+
+
+    // 移除 capture 属性的函数
     function removeCaptureAttribute() {
         // 获取所有 input 元素
-        var inputs = document.querySelectorAll('div.paizhao-btn>input');
+        var inputs = document.querySelectorAll('input');
 
         // 遍历所有 input 元素
         inputs.forEach(function(input) {
             // 检查是否具有 "capture" 属性
-            if (input.hasAttribute('capture')) {
+            if (input.hasAttribute('hasCapture')) {
                 // 移除 "capture" 属性
                 input.removeAttribute('capture');
-                //input.setAttribute('accept', 'image/*');
+                input.setAttribute('accept', 'image/*');
             }
         });
     }
-    
-    //切换至capture模式
-    function addCaptureAttribute(){
-        var inputs = document.querySelectorAll('input');
 
+    function addCaptureAttribute() {
+	var inputs = document.querySelectorAll('input');
 	inputs.forEach(function(input) {
-	input.setAttribute('capture','camera');
+	    if (input.hasAttribute('hasCapture')) {
+		input setAttribute('capture','camera')
+	    }
 	});
     }
 
-    // 切换模式的函数
+    // 切换捕获模式的函数
     function toggleCaptureMode() {
         if (isCaptureMode) {
-            // 当前是捕获模式，切换回上传模式
+            // 当前是捕获模式，切换回普通模式
             isCaptureMode = false;
         } else {
-            // 当前是上传模式，切换到捕获模式
             isCaptureMode = true;
         }
     }
-    
-    function loadCaptureMode() {
-	if(isCaptureMode) {
-	    removeCaptureAttribute();
-	} else {
+
+    function loadCaptureAttribute() {
+	if (isCaptureMode) {
 	    addCaptureAttribute();
+	} else {
+	    removeCaptureAttribute();
 	}
     }
 
-    // 在页面加载和 DOM 变化时
-    document.addEventListener('DOMContentLoaded', loadCaptureMode);
-    var observer = new MutationObserver(loadCaptureMode);
+    // 在页面加载和 DOM 变化时getCaptureInput
+    document.addEventListener('DOMContentLoaded', function(){getCaptureInput();loadCaptureAttritube();});
+    var observer = new MutationObserver(function(){getCaptureInput();loadCaptureAttritube();});
     observer.observe(document.body, { childList: true, subtree: true });
 
+
     // 监听三指单击事件
-    document.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 3) {
-            toggleCaptureMode();
-	    loadCaptureMode();
+    document.addEventListener('touchend', function(event) {
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            // 触发了三指单击事件
+            touchCount++;
+            clearTimeout(timeout);
+
+            if (touchCount === 1) {
+                timeout = setTimeout(function() {
+                    touchCount = 0;
+                    toggleCaptureMode();
+		    loadCaptureAttritube();
+                }, 500);
+            } else if (touchCount === 2) {
+                touchCount = 0;
+                clearTimeout(timeout);
+            }
+        } else {
+            touchCount = 1;
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                touchCount = 0;
+            }, 500);
         }
-    }, false);
+        lastTouchEnd = now;
+    });
 
+})();
 
-}
 
