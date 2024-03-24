@@ -2,106 +2,93 @@
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
 // @version      1.3
-// @description  Remove the "capture" attribute from all input elements on xnykc, including dynamically loaded content and toggle capture mode manually for mobile users
+// @description  重构版！新能源课程网页版支持拍照、上传模式切换！TODO：cookies。特别感谢chatGPT。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
 // @license      GPL-3
 // @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
+// @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
+// @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    var isCaptureMode = false;
+    // Set the isCapture variable
+    var isCapture = false;
 
-    function getCaptureInput() {
-        var inputs = document.querySelectorAll('input');
+    // Function to add or remove the capture attribute
+    function toggleCapture() {
+        var inputs = document.querySelectorAll('.paizhao-btn input');
         inputs.forEach(function(input) {
-            input.setAttribute('hasCapture', 1);
-        });
-    }
-
-    function removeCaptureAttribute() {
-        var inputs = document.querySelectorAll('input');
-        inputs.forEach(function(input) {
-            if (input.hasAttribute('hasCapture')) {
-                input.removeAttribute('capture');
-                input.removeAttribute('accept');
-            }
-        });
-    }
-
-    function addCaptureAttribute() {
-        var inputs = document.querySelectorAll('input');
-        inputs.forEach(function(input) {
-            if (input.hasAttribute('hasCapture')) {
+            if (isCapture) {
                 input.setAttribute('capture', 'camera');
-                input.setAttribute('accept', 'image/*');
+            } else {
+                input.removeAttribute('capture');
             }
         });
     }
 
-    function toggleCaptureMode() {
-        isCaptureMode = !isCaptureMode;
-        loadCaptureAttribute();
-        updateButton();
-    }
-
-    function loadCaptureAttribute() {
-        if (isCaptureMode) {
-            addCaptureAttribute();
-        } else {
-            removeCaptureAttribute();
+    // Function to update the menu item text
+    function updateMenuItem() {
+        var menuItem = document.querySelector('.custom-menu-item');
+        if (menuItem) {
+            menuItem.textContent = isCapture ? '拍照' : '上传';
         }
     }
 
-    function updateButton() {
-        var button = document.getElementById('captureToggleButton');
-        if (!button) {
-            createToggleButton();
-            return;
-        }
-        if (isCaptureMode) {
-            button.textContent = '拍照';
-        } else {
-            button.textContent = '上传';
+    // Function to add the menu item
+    function addMenuItem() {
+        var menu = document.querySelector('.menu');
+        if (menu && !document.querySelector('.custom-menu-item')) {
+            var menuItem = document.createElement('div');
+            menuItem.className = 'custom-menu-item';
+            menuItem.textContent = isCapture ? '拍照' : '上传';
+            menuItem.addEventListener('click', function() {
+                isCapture = !isCapture;
+                toggleCapture();
+                updateMenuItem();
+            });
+            menu.appendChild(menuItem);
         }
     }
 
-    function createToggleButton() {
-        var button = document.createElement('button');
-        button.id = 'captureToggleButton';
-        button.style.position = 'fixed';
-        button.style.top = '10px';
-        button.style.left = '10px';
-        button.style.zIndex = '9999';
-        button.addEventListener('click', function() {
-            toggleCaptureMode();
-        });
-        updateButton();
-        document.body.appendChild(button);
-    }
-
-    function observePageChanges() {
-        var observer = new MutationObserver(function(mutationsList, observer) {
-            for (var mutation of mutationsList) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    getCaptureInput();
-                    loadCaptureAttribute();
-                }
+    // Observe changes in the document for menu loading
+    var menuObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.querySelector('.menu')) { // Check if the added node contains the menu
+                        addMenuItem();
+                    }
+                });
             }
         });
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        getCaptureInput();
-        loadCaptureAttribute();
-        createToggleButton();
-        observePageChanges();
     });
 
-})();
+    // Start observing for menu loading
+    menuObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
+    // Observe changes in the document for input elements
+    var inputObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length || mutation.removedNodes.length) {
+                toggleCapture();
+            }
+        });
+    });
+
+    // Start observing for input elements
+    inputObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Initial toggle for input elements
+    toggleCapture();
+})();
