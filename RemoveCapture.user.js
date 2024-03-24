@@ -1,117 +1,94 @@
 // ==UserScript==
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
-// @version      1.1
-// @description  Remove the "capture" attribute from all input elements on xnykc, including dynamically loaded content and toggle capture mode on triple tap for mobile users
+// @version      1.3
+// @description  重构版！新能源课程网页版支持拍照、上传模式切换！TODO：cookies。特别感谢chatGPT。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
 // @license      GPL-3
 // @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
+// @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
+// @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    var isCaptureMode = false;
-    var originalCaptureAttributes = {}; // 保存初始的capture属性值
-    var lastTouchEnd = 0;
-    var touchCount = 0;
-    var timeout;
+    // Set the isCapture variable
+    var isCapture = false;
 
-    // 保存初始的capture属性值和accept属性值
-    function saveOriginalAttributes() {
-        var inputs = document.querySelectorAll('input');
+    // Function to add or remove the capture attribute
+    function toggleCapture() {
+        var inputs = document.querySelectorAll('.paizhao-btn input');
         inputs.forEach(function(input) {
-            originalCaptureAttributes[input] = {
-                capture: input.getAttribute('capture'),
-                accept: input.getAttribute('accept')
-            };
-        });
-    }
-
-    // 移除 capture 属性的函数
-    function removeCaptureAttribute() {
-        // 获取所有 input 元素
-        var inputs = document.querySelectorAll('input');
-
-        // 遍历所有 input 元素
-        inputs.forEach(function(input) {
-            // 检查是否具有 "capture" 属性
-            if (input.hasAttribute('capture')) {
-                // 移除 "capture" 属性
+            if (isCapture) {
+                input.setAttribute('capture', 'camera');
+            } else {
                 input.removeAttribute('capture');
-                input.setAttribute('accept', 'image/*');
             }
         });
     }
 
-    // 切换捕获模式的函数
-    function toggleCaptureMode() {
-        if (isCaptureMode) {
-            // 当前是捕获模式，切换回普通模式
-            removeCaptureAttribute();
-            isCaptureMode = false;
-        } else {
-            // 当前是普通模式，切换到捕获模式
-            var inputs = document.querySelectorAll('input');
+    // Function to update the menu item text
+    function updateMenuItem() {
+        var menuItem = document.querySelector('.custom-menu-item');
+        if (menuItem) {
+            menuItem.textContent = isCapture ? '拍照' : '上传';
+        }
+    }
 
-            inputs.forEach(function(input) {
-                input.setAttribute('capture', 'true');
-                input.setAttribute('accept', 'image/*');
+    // Function to add the menu item
+    function addMenuItem() {
+        var menu = document.querySelector('.menu');
+        if (menu && !document.querySelector('.custom-menu-item')) {
+            var menuItem = document.createElement('div');
+            menuItem.className = 'custom-menu-item';
+            menuItem.textContent = isCapture ? '拍照' : '上传';
+            menuItem.addEventListener('click', function() {
+                isCapture = !isCapture;
+                toggleCapture();
+                updateMenuItem();
             });
-
-            isCaptureMode = true;
+            menu.appendChild(menuItem);
         }
     }
 
-    // 恢复初始的capture属性值和accept属性值
-    function restoreOriginalAttributes() {
-        var inputs = document.querySelectorAll('input');
-        inputs.forEach(function(input) {
-            if (originalCaptureAttributes[input]) {
-                input.setAttribute('capture', originalCaptureAttributes[input].capture);
-                input.setAttribute('accept', originalCaptureAttributes[input].accept);
+    // Observe changes in the document for menu loading
+    var menuObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.querySelector('.menu')) { // Check if the added node contains the menu
+                        addMenuItem();
+                    }
+                });
             }
         });
-    }
-
-    // 在页面加载时保存初始的capture属性值和accept属性值
-    document.addEventListener('DOMContentLoaded', saveOriginalAttributes);
-
-    // 在页面加载和 DOM 变化时调用移除 capture 属性的函数
-    document.addEventListener('DOMContentLoaded', removeCaptureAttribute);
-    var observer = new MutationObserver(removeCaptureAttribute);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // 监听三指单击事件
-    document.addEventListener('touchend', function(event) {
-        var now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            // 触发了三指单击事件
-            touchCount++;
-            clearTimeout(timeout);
-
-            if (touchCount === 1) {
-                timeout = setTimeout(function() {
-                    touchCount = 0;
-                    toggleCaptureMode();
-                }, 500);
-            } else if (touchCount === 2) {
-                touchCount = 0;
-                clearTimeout(timeout);
-                restoreOriginalAttributes();
-            }
-        } else {
-            touchCount = 1;
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                touchCount = 0;
-            }, 500);
-        }
-        lastTouchEnd = now;
     });
 
-})();
+    // Start observing for menu loading
+    menuObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
+    // Observe changes in the document for input elements
+    var inputObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length || mutation.removedNodes.length) {
+                toggleCapture();
+            }
+        });
+    });
+
+    // Start observing for input elements
+    inputObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Initial toggle for input elements
+    toggleCapture();
+})();
