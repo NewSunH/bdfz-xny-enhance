@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
-// @version      1.3
-// @description  重构版！新能源课程网页版支持拍照、上传模式切换！TODO：cookies。特别感谢chatGPT。
+// @version      1.4
+// @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
 // @license      GPL-3
-// @run-at       document_end
-// @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
+// @run-at       document-start
 // @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
-// @updateURL    https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
+// @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
+// @updateURL    https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
 // ==/UserScript==
 
 (function() {
@@ -23,6 +23,14 @@
     // Function to add or remove the capture attribute
     function toggleCapture() {
         var inputs = document.querySelectorAll('.paizhao-btn input');
+        inputs.forEach(function(input) {
+            if (isCapture) {
+                input.setAttribute('capture', 'camera');
+            } else {
+                input.removeAttribute('capture');
+            }
+        });
+        var inputs = document.querySelectorAll('.or-box input');
         inputs.forEach(function(input) {
             if (isCapture) {
                 input.setAttribute('capture', 'camera');
@@ -57,6 +65,7 @@
     }
 
     // Observe changes in the document for menu loading
+    /*
     var menuObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.addedNodes.length) {
@@ -68,16 +77,21 @@
             }
         });
     });
+    */
+
 
     // Start observing for menu loading
+    /*
     menuObserver.observe(document.body, {
         childList: true,
         subtree: true
     });
+    */
 
     // Observe changes in the document for input elements
     var inputObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
+	    addMenuItem();
             if (mutation.addedNodes.length || mutation.removedNodes.length) {
                 toggleCapture();
             }
