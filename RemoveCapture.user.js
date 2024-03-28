@@ -65,6 +65,7 @@
     }
 
     // Observe changes in the document for menu loading
+    /*
     var menuObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.addedNodes.length) {
@@ -76,16 +77,21 @@
             }
         });
     });
+    */
+
 
     // Start observing for menu loading
+    /*
     menuObserver.observe(document.body, {
         childList: true,
         subtree: true
     });
+    */
 
     // Observe changes in the document for input elements
     var inputObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
+	    addMenuItem();
             if (mutation.addedNodes.length || mutation.removedNodes.length) {
                 toggleCapture();
             }
