@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
-// @version      1.4
+// @version      1.5
 // @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
@@ -18,10 +18,11 @@
     'use strict';
 
     // Set the isCapture variable
-    var isCapture = false;
+    var isCapture = true;
 
     // Function to add or remove the capture attribute
     function toggleCapture() {
+	//"Capture to answer" btn
         var inputs = document.querySelectorAll('.paizhao-btn input');
         inputs.forEach(function(input) {
             if (isCapture) {
@@ -30,6 +31,7 @@
                 input.removeAttribute('capture');
             }
         });
+	//"Append an image" btn
         var inputs = document.querySelectorAll('.or-box input');
         inputs.forEach(function(input) {
             if (isCapture) {
@@ -90,8 +92,8 @@
 
     // Observe changes in the document for input elements
     var inputObserver = new MutationObserver(function(mutations) {
+	addMenuItem();
         mutations.forEach(function(mutation) {
-	    addMenuItem();
             if (mutation.addedNodes.length || mutation.removedNodes.length) {
                 toggleCapture();
             }
@@ -105,5 +107,6 @@
     });
 
     // Initial toggle for input elements
+    addMenuItem();
     toggleCapture();
 })();
