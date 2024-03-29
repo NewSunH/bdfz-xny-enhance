@@ -91,10 +91,10 @@
     */
 
     // Observe changes in the document for input elements
-    var inputObserver = new MutationObserver(function(mutations) {
-	addMenuItem();
+        var inputObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.addedNodes.length || mutation.removedNodes.length) {
+                addMenuItem();
                 toggleCapture();
             }
         });
