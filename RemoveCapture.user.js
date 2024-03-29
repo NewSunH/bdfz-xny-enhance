@@ -107,6 +107,6 @@
     });
 
     // Initial toggle for input elements
-    addMenuItem();
+    setTimeout(addMenuItem, 500);
     toggleCapture();
 })();
