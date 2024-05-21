@@ -7,7 +7,7 @@
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
 // @license      GPL-3
-// @run-at       document-start
+// @run-at       document-end
 // @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
