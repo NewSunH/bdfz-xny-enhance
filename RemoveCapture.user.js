@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
-// @version      1.4
-// @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。
+// @version      1.5
+// @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。正在支持多平台。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
 // @license      GPL-3
-// @run-at       document-start
+// @run-at       document-end
 // @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
@@ -18,10 +18,11 @@
     'use strict';
 
     // Set the isCapture variable
-    var isCapture = false;
+    var isCapture = true;
 
     // Function to add or remove the capture attribute
     function toggleCapture() {
+	//"Capture to answer" btn
         var inputs = document.querySelectorAll('.paizhao-btn input');
         inputs.forEach(function(input) {
             if (isCapture) {
@@ -30,6 +31,7 @@
                 input.removeAttribute('capture');
             }
         });
+	//"Append an image" btn
         var inputs = document.querySelectorAll('.or-box input');
         inputs.forEach(function(input) {
             if (isCapture) {
@@ -89,10 +91,10 @@
     */
 
     // Observe changes in the document for input elements
-    var inputObserver = new MutationObserver(function(mutations) {
+        var inputObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-	    addMenuItem();
             if (mutation.addedNodes.length || mutation.removedNodes.length) {
+                addMenuItem();
                 toggleCapture();
             }
         });
@@ -105,5 +107,6 @@
     });
 
     // Initial toggle for input elements
+    setTimeout(addMenuItem, 500);
     toggleCapture();
 })();
