@@ -2,7 +2,7 @@
 // @name         新能源课程系统调用本地图片
 // @namespace    http://github.com/ShaoYuJun
 // @version      1.5
-// @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。
+// @description  重构版！新能源课程网页版支持拍照、上传模式切换！新版本支持追加图片！TODO：cookies。特别感谢chatGPT。正在支持多平台。
 // @author       Shaoyu
 // @match        *://bdfz.xnykcxt.com:5002/*
 // @grant        none
