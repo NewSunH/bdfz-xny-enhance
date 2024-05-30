@@ -8,6 +8,7 @@
 // @grant        none
 // @license      GPL-3
 // @run-at       document-end
+// @icon         https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/main/icon.png
 // @downloadURL  https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.user.js
 // @updateURL    https://raw.gitmirror.com/ShaoYuJun/xny-capture-remove/stable/RemoveCapture.meta.js
