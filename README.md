@@ -1,6 +1,6 @@
 <p align="center">
     <img width="50px" style="padding: 0 10px;"src="https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/main/icon.png">
-    <span style="font-size:40px; padding: 0 10px">新能源增强脚本</span>
+    <h1 align="center">新能源增强脚本</h1>
 </p>
 
 
@@ -8,11 +8,9 @@
     增强网页版新能源课程系统（北大附中预科部备考系统）使用体验！
 </p>
 
------
-
-<div align:"center">
+<div align="center">
     <img alt="GitHub License" src="https://img.shields.io/github/license/shaoyujun/bdfz-xny-enhance">
-	<img alt="GitHub Release" src="https://img.shields.io/github/v/release/shaoyujun/bdfz-xny-enhance">
+    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/shaoyujun/bdfz-xny-enhance">
     <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/shaoyujun/bdfz-xny-enhance">
     <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/shaoyujun/bdfz-xny-enhance?style=social">
 </div>
