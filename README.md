@@ -17,9 +17,9 @@
 
 ## 用途
 
-你是否在为卡顿的新能源客户端困扰？你是否希望使用Dark Reader插件在网页版使用深色模式的新能源系统？你是否因为网页版不能从系统相册上传图片而不得不使用客户端？本脚本将帮你在网页端实现上传本地图片的功能，并可以自由在直接拍照和上传模式之间无缝切换！
+你是否在为卡顿的新能源客户端困扰？你是否希望网页能记住你的用户名和密码减少你每次打开新能源的时间？你是否希望使用Dark Reader插件在网页版使用深色模式的新能源系统？你是否因为网页版不能从系统相册上传图片而不得不使用客户端？本脚本将帮你在网页端实现上传本地图片的功能，并可以自由在直接拍照和上传模式之间无缝切换！
 
-
+需要注意的是，新能源的登录态在一段时间后会过期，具体表现为无法查看成绩、无法进入批阅页面，这时请重新回到登录页面进行登录（如果使用app，登录态过期表现为退出登录要求重新输入密码）。
 
 ## 安装 Install
 
@@ -35,6 +35,6 @@
 
 安装本脚本：
 
-- 点击安装链接：[github](https://raw.githubusercontent.com/ShaoYuJun/bdfz-xny-enhance/stable/RemoveCapture.user.js)、[gitmirror（国内更快）](https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/stable/RemoveCapture.user.js)
+- 点击安装链接：[github](https://raw.githubusercontent.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js)、[gitmirror（国内更快）](https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js)
 - 在弹出的安装界面点击安装
 
