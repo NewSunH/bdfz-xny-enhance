@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="50px" style="padding: 0 10px;"src="https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/main/icon.png">
+    <img width="50px" style="padding: 0 10px;"src="https://raw.gitmirror.com/NewSunH/bdfz-xny-enhance/main/icon.png">
     <h1 align="center">新能源增强脚本</h1>
 </p>
 
@@ -9,10 +9,10 @@
 </p>
 
 <div align="center">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/shaoyujun/bdfz-xny-enhance">
-    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/shaoyujun/bdfz-xny-enhance">
-    <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/shaoyujun/bdfz-xny-enhance">
-    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/shaoyujun/bdfz-xny-enhance?style=social">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/newsunh/bdfz-xny-enhance">
+    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/newsunh/bdfz-xny-enhance">
+    <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/newsunh/bdfz-xny-enhance">
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/newsunh/bdfz-xny-enhance?style=social">
 </div>
 
 ## 用途
@@ -35,6 +35,6 @@
 
 安装本脚本：
 
-- 点击安装链接：[github](https://raw.githubusercontent.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js)、[gitmirror（国内更快）](https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js)
+- 点击安装链接：[github](https://raw.githubusercontent.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.user.js)、[gitmirror（国内更快）](https://raw.gitmirror.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.user.js)
 - 在弹出的安装界面点击安装
 

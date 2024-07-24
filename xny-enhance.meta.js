@@ -8,9 +8,9 @@
 // @grant        none
 // @license      GPL-3
 // @run-at       document-end
-// @icon         https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/main/icon.png
-// @downloadURL  https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js
-// @downloadURL  https://raw.githubusercontent.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.user.js
-// @updateURL    https://raw.gitmirror.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.meta.js
-// @updateURL    https://raw.githubusercontent.com/ShaoYuJun/bdfz-xny-enhance/stable/xny-enhance.meta.js
+// @icon         https://raw.gitmirror.com/NewSunH/bdfz-xny-enhance/main/icon.png
+// @downloadURL  https://raw.gitmirror.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.user.js
+// @downloadURL  https://raw.githubusercontent.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.user.js
+// @updateURL    https://raw.gitmirror.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.meta.js
+// @updateURL    https://raw.githubusercontent.com/NewSunH/bdfz-xny-enhance/stable/xny-enhance.meta.js
 // ==/UserScript==
